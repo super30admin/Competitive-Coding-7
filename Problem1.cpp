@@ -34,6 +34,31 @@ You may assume k is always valid, 1 ≤ k ≤ n2.
 class Solution {
 public:
     /* Get total num of elements which are less than or equal to num in the array */
+    /*
+    * Approach in detail"
+    * Using binary search, and taking the min and max element in the matrix, we do the following
+    * 1. Get the middle element, try to find the total number of elements which are less than or equal to this number
+    *   in the matrix using function count_elem_less_than_num. The advantage is : that kth smallest numb which we are 
+     * trying to find is going to be at the point where we get the count from the function count_elem_less_than_num =
+      * our target. 
+    * If the total number of elements are more than what you searched for in matrix, it means you need to move your
+    * search window to the left to accomodate less elements. so the new search will be : start remains the same.
+    * end will change to mid. Here we are not changing to mid -1 because there can be a case where mid is the actual point
+    * where we get our target count elements. 
+    * If total number of elements is less than what you searched for in matrix, it means you need to increase your search window
+     * to do that... change start to mid + 1 and end remains the same so that we can get a higher window to search for
+     *
+     * matrix = [
+               [ 1,  5,  9],
+               [10, 11, 13],
+               [12, 13, 15]
+            ],
+            k = 8,
+     *  .for eg :for first iteration : low = 1 high = 15  
+     *   we get mid = 8,,, total 2 elements ie 1 and 5 are less than 8 which is not equal to 8 target. so we move 
+     * low to mid + 1 ie 9 and high to 15 and continue.
+     *
+    */
     int count_elem_less_than_num(vector<vector<int>>& matrix, int num) {
         int count = 0;
         int row = 0, col = 0;
