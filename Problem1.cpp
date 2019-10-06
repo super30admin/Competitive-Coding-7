@@ -26,7 +26,9 @@ You may assume k is always valid, 1 ≤ k ≤ n2.
      the number of elements in the matrix less than equal to the mid which can also take upto n computations.
  * Space complexity : O(1) excluding result array  
 
- * Solution 2: TODO : with heap
+ * Solution 2: using max heap
+ * Time complexity: O(log(n)) where n is row*col 
+ * space complexity: O(n) where n is row*col
  */
 
 class Solution {
@@ -37,6 +39,7 @@ public:
         int row = 0, col = 0;
         int len = matrix.size();
 
+        /* For each row, go in the end and then keep on coming backwards until you find a number less than equal to num */
         for (row = 0; row < len; row++) {
             for (col = len - 1; col >= 0; col--) {
                 if (matrix[row][col] <= num) {
@@ -70,9 +73,32 @@ public:
         int min = 0;
         int len = matrix.size();
         
+        /* The fact that matrix is row and col wise sorted, you can take min and max as left most and right most corner
+         * elements */
         /* assuming vector is never empty */
         return binary_search(matrix, matrix[0][0], matrix.back()[len - 1], k);            
 
+    }
+    /* using max heap */
+    int kthSmallest_ver2(vector<vector<int>>& matrix, int k) {
+        int min = 0;
+        int len = matrix.size();
+        
+        priority_queue<int> max_heap;
+        
+        for (int row = 0; row < len; row++) {
+            for (int col = 0; col < len; col++) {
+                if (max_heap.size() == k) {
+                    if (matrix[row][col] < max_heap.top()) {
+                        max_heap.pop();
+                        max_heap.push(matrix[row][col]);                        
+                    }
+                } else {
+                    max_heap.push(matrix[row][col]);
+                }
+            }
+        }            
+        return max_heap.top();
     }
 };
 /* Execute on leetcode platform */
