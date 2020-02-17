@@ -39,7 +39,7 @@ class Solution:
                 break
             # if we still have elements in the current row
             col += 1
-            if cols > col:
+            if col < cols:
                 heappush(pq, (row[col], col, row))
         return number
 
