@@ -36,7 +36,7 @@ class Solution:
             return -1
 
         # sort by start time
-        # intervals.sort(key=lambda x: x[0])
+        intervals.sort(key=lambda x: x[0])
 
         # first meeting will always need one room
         # just add the first end time and increment room
@@ -60,5 +60,5 @@ class Solution:
 
 if __name__ == '__main__':
     print(Solution().minMeetingRooms([[0, 30], [5, 10], [15, 20]]))
-    print(Solution().minMeetingRooms([[1, 5], [2, 15], [36, 45], [9, 29], [16, 23], [4, 9]]))
+    print(Solution().minMeetingRooms([[2, 15], [36, 45], [9, 29], [16, 23], [4, 9]]))
     print(Solution().minMeetingRooms([[7, 10], [2, 4]]))
