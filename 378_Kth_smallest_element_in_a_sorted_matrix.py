@@ -3,7 +3,7 @@ from typing import List
 
 
 class Solution:
-    def kthSmallest(self, matrix: List[List[int]], k: int) -> int:
+    def kthSmallestBruteForce(self, matrix: List[List[int]], k: int) -> int:
         """
             Time Complexity - O(min(k,N)+K*logN)
             Space Complexity - O(K)
@@ -44,40 +44,26 @@ class Solution:
         return number
 
     def kthSmallest(self, matrix, k):
-        n = len(matrix)
-        start, end = matrix[0][0], matrix[n - 1][n - 1]
-        while start < end:
-            mid = start + (end - start) / 2
-            smaller, larger = (matrix[0][0], matrix[n - 1][n - 1])
-
-            count, smaller, larger = self.count_less_equal(matrix, mid, smaller, larger)
-
-            if count == k:
-                return smaller
-            if count < k:
-                start = larger  # search higher
+        low = matrix[0][0]
+        high = matrix[-1][-1]
+        while low < high:
+            mid = (low + high) // 2
+            counter = self._count(matrix, mid)
+            if counter < k:
+                low = mid + 1
             else:
-                end = smaller  # search lower
+                high = mid
+        return low
 
-        return start
-
-    def count_less_equal(self, matrix, mid, smaller, larger):
-        count, n = 0, len(matrix)
-        row, col = n - 1, 0
-        while row >= 0 and col < n:
-            if matrix[row][col] > mid:
-                # as matrix[row][col] is bigger than the mid, let's keep track of the
-                # smallest number greater than the mid
-                larger = min(larger, matrix[row][col])
-                row -= 1
-            else:
-                # as matrix[row][col] is less than or equal to the mid, let's keep track of the
-                # biggest number less than or equal to the mid
-                smaller = max(smaller, matrix[row][col])
-                count += row + 1
-                col += 1
-
-        return count, smaller, larger
+    def _count(self, matrix, mid):
+        rows = len(matrix)
+        count = 0
+        j = rows - 1
+        for i in range(rows):
+            while j >= 0 and matrix[i][j] > mid:
+                j -= 1
+            count += j + 1
+        return count
 
 
 if __name__ == '__main__':
@@ -89,4 +75,3 @@ if __name__ == '__main__':
     k = 8
 
     print(Solution().kthSmallest(matrix, k))
-    print(Solution().find_Kth_smallest(matrix, k))
