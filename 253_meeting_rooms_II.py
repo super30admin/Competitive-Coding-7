@@ -33,29 +33,26 @@ class Solution:
         """
         # edge case
         if not intervals:
-            return -1
+            return 0
 
         # sort by start time
         intervals.sort(key=lambda x: x[0])
 
         # first meeting will always need one room
-        # just add the first end time and increment room
+        # just add the first end time
         pq = [intervals[0][1]]
-        room_count = 1
 
         # start from the second meeting
         for interval in range(1, len(intervals)):
+            # start and end time of the current meeting
             start_time, end_time = intervals[interval][0], intervals[interval][1]
             # start_time of current meeting > end_time of earlist available room
             # this means we can use the earliest available room for the current meeting
             if start_time >= pq[0]:
                 heappop(pq)
-            else:
-                # cannot use existing room, add new room for the meeting
-                room_count += 1
             # ending time of the current meeting
             heappush(pq, end_time)
-        return room_count
+        return len(pq)
 
 
 if __name__ == '__main__':
