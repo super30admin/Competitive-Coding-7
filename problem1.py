@@ -1,4 +1,13 @@
 '''
+Binary Search:
+Time Complexity: O(nlog(high-low)) m is rows
+Space Complexity: O(1)
+Did this code successfully run on Leetcode : Yes
+Explanation: Create a count of all elements of which are less than mid. low initially is first element and high is the
+last element in the matrix, count all elements less than mid, if number of elements <k then move to the right by setting
+mid to mid +1 else set mid to high. return low
+
+MinHeap
 Time Complexity: O(mlog k) m is rows
 Space Complexity: O(m)
 Did this code successfully run on Leetcode : Yes
@@ -20,6 +29,33 @@ class obj:
 
 
 class Solution:
+    def getCount(self, matrix, mid):
+        length = len(matrix) - 1
+        j = length
+        count = 0
+        for i in range(0, len(matrix)):
+            while j >= 0 and matrix[i][j] > mid:
+                j -= 1
+            count += j + 1
+
+        return count
+
+    def kthSmallest(self, matrix: List[List[int]], k: int) -> int:
+        if k == None or matrix == None:
+            return 0
+        n = len(matrix)
+        low = matrix[0][0]
+        high = matrix[n - 1][n - 1]
+
+        while low < high:
+            mid = int(low + (high - low) / 2)
+            countOfElements = self.getCount(matrix, mid)
+            if countOfElements < k:
+                low = mid + 1
+            else:
+                high = mid
+
+        return low
     def kthSmallest(self, matrix: List[List[int]], k: int) -> int:
         if k == None or matrix == None:
             return 0
