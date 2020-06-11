@@ -1,0 +1,36 @@
+// Time Complexity : O(n logn)
+// Space Complexity : O(k) k - max number of room  needed
+// Did this code successfully run on Leetcode : Yes
+// Any problem you faced while coding this : No
+
+class Solution {
+    public int minMeetingRooms(int[][] intervals) {
+	
+	  /* edge case */
+	  if( intervals == null || intervals.length == 0)
+	     return 0;
+         /* sort array on basis of start time and incase of same start time on basis of end time */
+	  Arrays.sort(intervals, new Comparator<int[]>(){
+      @override
+	  public int compare(int[] a, int[] b){
+	      if( a[0] == b[0])
+		     return a[1]-b[1];
+		  else
+		    return a[0]-b[0];
+	  });	  
+	  
+	  priorityQueue<Integer> pq = new PriorityQueue<>();
+	  
+          /* add first interval time */
+	  pq.add(intervals[0][1]);
+	  for( int i = 1; i < intervals.length ;i++){
+
+	     int starttime = intervals[i][0];
+		 if(pq.peek() <= starttime) /* if next meeting time is gretaerthan pq peek pop the elemenet from peek */
+		    pq.poll();
+		pq.add(intervals[i][1]); /* add end time of meeting to pq */
+	  }
+	  
+	  return pq.size(); // return size of queue that needed at any time
+    }
+}
