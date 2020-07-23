@@ -1,0 +1,66 @@
+// Time complexity: nlogk where n -> size of matrix, k is the size of the heap
+// Space complexity: O(k) k -> size of the heap
+
+
+// Approach 1: Using max heap
+
+class Solution {
+    public int kthSmallest(int[][] matrix, int k) {
+        if(matrix == null || matrix.length == 0) return 0;
+        PriorityQueue<Integer> pq = new PriorityQueue<>((a,b) -> b-a);
+
+        for(int i = 0 ; i < matrix.length ; i++){
+            for(int j = 0 ; j < matrix[0].length ; j++){
+
+                pq.add(matrix[i][j]);
+
+                if(pq.size() > k) {
+                    pq.poll();
+                }
+
+            }
+        }
+        return pq.peek();
+    }
+}
+
+// Approach 2: Optimized Binary Search
+// Time Complexity: logn -> n is the size of the matrix
+// Space Complexity: O(1)
+// Time Complexity: O(logn)
+// Space Complexity: O(1)
+
+class Solution {
+    public int kthSmallest(int[][] matrix, int k) {
+        int n = matrix.length;
+        int low = matrix[0][0];
+        int high = matrix[n-1][n-1];
+
+        while(low < high){
+            int mid = low + (high - low)/2;
+            int count = getNumElements(matrix, mid);
+            if(count < k){
+                low = mid + 1;
+            }
+            else {
+                high = mid;
+            }
+        }
+        return low;
+
+    }
+
+    public int getNumElements(int[][] matrix, int mid){
+        int n = matrix.length;
+        int j = n - 1;
+        int count = 0;
+        for(int i = 0 ; i < n ; i++){
+
+            while(j >= 0 && matrix[i][j] > mid){
+                j--;
+            }
+            count += j+1;
+        }
+        return count;
+    }
+}
