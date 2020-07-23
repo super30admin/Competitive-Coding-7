@@ -1,5 +1,9 @@
 import heapq
 
+# using heaps
+# maintain a max heap. push the elements to a max heap. Maintain the length of the heap to K while pushing the elements.
+# After the traversal ends, pop the topmost element from the heap and return it's value.
+# since we are maintaining k elements in the heap. time to insert an element to the heap will be O(nlogk) and space will be O(k).
 # O(nlogk) time | O(k) space
 class Node:
     def __init__(self, val):
