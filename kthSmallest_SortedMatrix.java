@@ -1,6 +1,6 @@
 /**
- * Time: O(K) k - input k max can be matrix.length
- * Space: O(n) n-matrix.length
+ * Time: O(K+nlogn) K - input K max can be all the ele in the gvn matrix, n is the length of the col/row
+ * Space: O(n) n is the length of the col/row
  *  I chose this value because while choosing any kth smallest value, we need max diagonal elements which was equal to row or col length
  *  so whnever the ele is removed the next contender will be the next ele (as its sorted)
  */
