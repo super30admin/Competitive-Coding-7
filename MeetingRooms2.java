@@ -12,7 +12,7 @@ public class Solution {
 	pq.add(intervals[0][1]);
 	for (int i = 1; i < intervals.length; i++) {
 		int peekVal = pq.peek();
-		if (intervals[i][0] > peekVal) {
+		if (intervals[i][0] >= peekVal) {
 			pq.remove();
 	        pq.add(intervals[i][1]);
 		}
