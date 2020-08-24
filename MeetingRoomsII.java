@@ -1,4 +1,4 @@
-//TC: O(n log(n))
+//TC: O(n log(n)), n: length of intervals[]
 //SC: O(n)
 class Solution {
     public int minMeetingRooms(int[][] intervals) {
