@@ -1,0 +1,25 @@
+Approach1 : Min Heap
+Time Complexity : O(NlogN)+ Heapify(nlogk)= O(NlogN)
+Space Complexity: O(N) because we construct the min-heap and that can contain 
+N elements in the worst case
+class Solution {
+    public int minMeetingRooms(int[][] intervals) {
+        if (intervals.length==0){
+            return 0;
+        }
+        Arrays.sort(intervals,(a,b)->a[0]-b[0]); // First Idea because we would get to know what order the meetings are scheduled
+        PriorityQueue<Integer> pq=new PriorityQueue<>(); //Min Heap
+        pq.add(intervals[0][1]);
+        for (int i=1;i<intervals.length;i++){
+            int peekval=pq.peek();
+            if (intervals[i][0]>=peekval){ // Case 1 Start time of int >= peek value of heap
+                pq.remove();
+                pq.add(intervals[i][1]);                
+            }else{
+                pq.add(intervals[i][1]);
+            }
+        }
+        return pq.size();
+        
+    }
+}
