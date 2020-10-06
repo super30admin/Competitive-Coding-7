@@ -1,4 +1,4 @@
-// Time Complexity : O(nlogn) logn for binary search and k denotes the frame of k elements 
+// Time Complexity : O(nlogn) sort the intervals based on the start time of the meeting
 // Space Complexity : O(n) n is the minimum number of rooms required to conduct all the meetings which is the size of the queue 
 // and in worst case it can reach the total number of intervals.
 // Did this code successfully run on Leetcode : Yes
