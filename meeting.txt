@@ -1,0 +1,17 @@
+# Time - O(nlogn) - sorting 
+# Space - O(n) - max number of meeting rooms
+
+# Create a new room (insert to heap) everytime an interval cannot co-exist with existing ones
+
+class Solution:
+    def minMeetingRooms(self, intervals: List[List[int]]) -> int:
+        if not intervals:
+            return 0
+        intervals.sort()
+        minHeap = []
+        for i in range(len(intervals)):
+            if minHeap and intervals[i][0] >= minHeap[0]:
+                heapq.heapreplace(minHeap, intervals[i][1])
+            else:
+                heapq.heappush(minHeap, intervals[i][1])
+        return len(minHeap)
