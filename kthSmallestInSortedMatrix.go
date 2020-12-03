@@ -50,5 +50,5 @@ func getCount(m [][]int, mid int) int {
 }
 
 func MainKthSmallest() {
-	fmt.Println(kthSmallest([][]int{{ 1,  5,  9}, {10, 11, 13}, {12, 13, 15}}, 8))
+	fmt.Println(kthSmallest([][]int{{ 1,  5,  9}, {10, 11, 13}, {12, 13, 15}}, 8)) //expected 13
 }
