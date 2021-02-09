@@ -56,4 +56,9 @@ class Solution:
         low, high = 0, n - 1;
         # invoke random quick select sort method to find kth smallest elt
         return self.quicksort(low, high, nums, k)
+        '''
+        n = number of rows, m = no of columns
+        time complexity = O(nm)
+        space complexity = O(nm)
+        '''
         
