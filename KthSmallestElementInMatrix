@@ -1,0 +1,43 @@
+//TC- o(nlog(max-min))
+//SC- o(1)
+class Solution {
+    public int kthSmallest(int[][] matrix, int k) {
+        
+        if(matrix == null || matrix.length == 0)
+            return -1;
+        int n = matrix.length;
+        //first and last element as low and high
+        int l = matrix[0][0];
+        int h = matrix[n-1][n-1];
+        
+        while (l<h){
+            //find mid
+            int m = l+(h-l)/2;
+            //get total no of counts which are <= mid
+            int count = counter(matrix,m);
+            //if it is less thn k move low pointer
+            if(count < k){
+                l = m+1;
+            } 
+            //move high pointer
+            else {
+                h = m;
+            }
+        }
+        //return low
+        return l;
+    }
+    
+    private int counter(int[][] matrix, int m){
+        int j = matrix.length-1;
+        int count = 0;
+        //check last element of each coloumn and keep adding j
+        for(int i =0; i<matrix.length;i++){
+            //if last element is grater reduce j until we get <= element
+            while(j>=0 && matrix[i][j] > m)
+                j--;
+            count = count+j+1;
+        }
+        return count;
+    }
+}
