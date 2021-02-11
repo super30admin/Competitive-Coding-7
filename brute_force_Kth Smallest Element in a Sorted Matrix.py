@@ -1,4 +1,5 @@
 #time : O(NlogN) where N = n^2
+#space: O(N)
 #brute force
 class Solution:
     def kthSmallest(self, matrix: List[List[int]], k: int) -> int:
