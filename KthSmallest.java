@@ -36,3 +36,7 @@ class Solution {
         return count; 
     }
 }
+
+
+//Time Complexity = O(log(max - min))
+//Space Complexity = O(1)
