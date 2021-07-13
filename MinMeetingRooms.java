@@ -21,16 +21,13 @@ public class MinMeetingRooms {
 		PriorityQueue<Integer> pq = new PriorityQueue<>();
 		
 		pq.add(intervals[0][1]);
-		int count = 1;
 		for(int i = 1; i < intervals.length; i++){
 			if(pq.peek() <= intervals[i][0]){
 				pq.remove();
-			}else {
-				count++;
 			}
 			pq.add(intervals[i][1]);
 		}
-		return count;
+		return pq.size();
 	}
 	public static void main(String[] args) {
 		System.out.println(new MinMeetingRooms().minMeetingRooms(new int[][] {{1,10},{5,15},{11,15}}));
