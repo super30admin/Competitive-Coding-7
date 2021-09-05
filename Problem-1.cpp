@@ -1,3 +1,6 @@
+//Time Complexity = O(n*m)
+//Space Complexity = O(n*m)
+//where n is the number of rows and m is the number of coloumns in the matrix.
 class Solution {
 public:
     int kthSmallest(vector<vector<int>>& matrix, int k) {
