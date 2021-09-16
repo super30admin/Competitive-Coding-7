@@ -47,3 +47,30 @@ public:
      return left;
     }
 };
+
+
+class Solution {
+public:
+     int getCount(vector<vector<int>> matrix, int mid){
+        int count=0;
+     for(int i=0;i<matrix.size();i++)
+         for(int j=0;j<matrix[0].size();j++)
+             if(matrix[i][j]<=mid)
+                count++;
+     return count;
+    }
+    
+    int kthSmallest(vector<vector<int>>& matrix, int k) {
+     int n = matrix.size();
+     int left = matrix[0][0];                           //in left and right there are values not the index.
+     int right = matrix[n-1][n-1];
+     while(left<right)
+     {
+         int mid = left + (right-left)/2;
+         int count= getCount(matrix,mid);
+         if(count<k)left=mid+1;
+         else right=mid;
+     }
+     return left;
+    }
+};
