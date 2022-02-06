@@ -1,4 +1,4 @@
-# Time Complexity - O(len of intervals)
+# Time Complexity - O(nlogn + n) -> O(n log n)
 # Space Complexity - O(size of heap)
 
 """
