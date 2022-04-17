@@ -3,7 +3,7 @@
     approach: brute force
     - Flatten the entire matrix in a 1D array
     - Sort it
-    - Return the k+1 idx element
+    - Return the k-1 idx element
     Time: o(mn) + o(nlogn)
     Space: o(mn)
 */
