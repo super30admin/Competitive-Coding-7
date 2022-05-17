@@ -17,5 +17,5 @@ class KthSmallestElementInSortedMatrix {
     }
 }
 
-//time complexity O(m^2 log k)
+//time complexity O(length of matrix * log k)
 //space complexity O(k)
