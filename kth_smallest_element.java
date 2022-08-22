@@ -13,7 +13,7 @@ class Solution {
         while (low < high) {
             int mid = low + (high - low) / 2;
             int count = getCount(matrix, mid);
-            if (count < k) { // if there are less than k elements left of mid
+            if (count < k) {
                 low = mid + 1;
             } else {
                 high = mid;
