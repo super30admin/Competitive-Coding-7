@@ -18,7 +18,7 @@ class Solution {
                     pq.poll();
                 }
             }
-            pq.add(intervals[i][1]); // adding the end timings into the heap
+            pq.add(intervals[i][1]);
         }
         return pq.size();
     }
