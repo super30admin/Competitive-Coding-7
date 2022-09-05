@@ -19,7 +19,7 @@ class Solution:
                 cnt += j+1
             return cnt
         
-        while(low < high): # Will take O(log(max -min)) time
+        while(low < high): # Will take O(log(max value -min value)) time
             mid = low + (high-low)//2
             cnt = count(matrix,mid)
             if cnt < k:

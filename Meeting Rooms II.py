@@ -1,5 +1,6 @@
-# Time Complexity: O(nlogn)
+# Time Complexity: O(nlogn) time fo-r both sorting and processing the intervals using heap
 # Space Complexity: O(n) for the heap
+
 class Solution:
     def minMeetingRooms(self, intervals: List[List[int]]) -> int:
         
