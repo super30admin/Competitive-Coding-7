@@ -1,5 +1,5 @@
-#Time complexity is:
-#Space complexity is:
+#Time complexity is:O(nlog(hogh-low))
+#Space complexity is:O(1)
 #No issues faced while coding
 #Code ran successfully on leetcode
 
