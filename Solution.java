@@ -18,8 +18,8 @@ public class Solution {
         }
         return  pq.size();
     }
-    
-    // TC: O(n log k)  SC: O(1)
+
+    // TC: O(n log k)  SC: O(k) where K is constant
     public static int kthSmallest_1(int[][] matrix, int k) {
         PriorityQueue<Integer> pq = new PriorityQueue<Integer>((a, b) -> (b - a));  //max heap
         for (int i = 0; i < matrix.length; i++) {
