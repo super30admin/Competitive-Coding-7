@@ -1,0 +1,73 @@
+(* // Time Complexity:  Max(O(nlogn), O(nlogm))
+// Space Complexity: O(m)
+//
+// where n is number of meetings, m is number of rooms rquired *)
+
+class Solution {
+  public int minMeetingRooms(int[][] intervals) {
+    Arrays.sort(intervals, (a,b) -> a[0] - b[0]);
+    Queue<Integer> minHeap = new PriorityQueue<>();
+    for(int[] interval : intervals) {
+      if(!minHeap.isEmpty() && minHeap.peek() <= interval[0]) {
+        minHeap.poll();
+      }
+      minHeap.add(interval[1]);
+    }
+    return minHeap.size();
+  }
+}
+
+
+(* // // ******************** Another method ******************** *)
+(* 
+// "static void main" must be defined in a public class.
+public class Main {
+    public static void main(String[] args) {
+        Main obj = new Main();
+        int[][] arr = {{0,30},{5,10},{15,20}};
+        int ans = obj.minMeetingRooms(arr);
+        System.out.println(ans);
+        System.out.println(ans==1);
+    }
+    public int minMeetingRooms(int[][] intervals) {
+        if(intervals == null || intervals.length == 0) {
+            return 0;
+        }
+        
+        Arrays.sort(intervals,                          // sorting intervals in ascending order of start time
+            (int[] a, int[] b) -> a[0] - b[0]
+        );
+        
+        Queue<int[]> pq = new PriorityQueue<>(          // keeping priority queue in descending order of end time
+            (int[] a, int[] b) -> a[1] - b[1]
+        );
+        
+(*         // // ********** Another way of using compare method of Comparator class **********
+        // Arrays.sort(intervals, new Comparator<int[]>() {
+        //     public int compare(int[] a, int[] b) {
+        //         return a[0] - b[0];
+        //     }
+        // });
+        // Queue<int[]> pq = new PriorityQueue<int[]>( new Comparator<int[]>() {
+        //     public int compare(int[] a, int[] b) {
+        //         return a[0] - b[0];
+        //     }
+        // }); *)
+        
+        pq.add(intervals[0]);
+        
+        for(int i=1; i<intervals.length; i++) {
+            int[] cur = intervals[i];
+            int[] prev = pq.poll();
+            if(cur[0] < prev[1]) {
+                pq.add(prev);
+                pq.add(cur);
+            }
+            else {
+                prev[1] = cur[1];
+                pq.add(prev);
+            }
+        }
+        return pq.size();
+    }
+} *)
