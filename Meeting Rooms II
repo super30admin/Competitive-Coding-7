@@ -1,0 +1,31 @@
+# Tc: O(nlogn)
+# Sc: O(n)
+
+import heapq
+class Solution:
+    def minMeetingRooms(self, intervals: List[List[int]]) -> int:
+        if not intervals: #basecase
+            return 0
+
+        #sorting the intervals
+        intervals.sort(key = lambda x:x[0])
+
+        #initializing and empty heap
+        end_times = []
+
+        #adding the end time of the first meeting
+        heapq.heappush(end_times, intervals[0][1])
+
+        #iterating through the meetings
+        for i in range(1, len(intervals)):
+            #comparing the ending time of first to starting time of next
+            if intervals[i][0] >= end_times[0]:
+                #popping the element
+                heapq.heappop(end_times)
+
+            #adding end time to the heap
+
+            heapq.heappush(end_times,intervals[i][1])
+        
+        #len of the end_times is the number of meeting rooms required
+        return len(end_times)
