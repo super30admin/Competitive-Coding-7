@@ -1,0 +1,30 @@
+PROBLEM 1 - Kth Smallest Element in a Sorted Matrix
+
+class Solution {
+    func kthSmallest(_ matrix: [[Int]], _ k: Int) -> Int {
+        var left = matrix[0][0]
+        var right = matrix[matrix.count - 1][matrix[0].count - 1] + 1
+        var middle = 0
+        var count = 0
+        var j = matrix[0].count - 1
+
+        while left < right {
+            middle = left + (right - left) / 2
+            count = 0
+            j = matrix[0].count - 1
+            for i in 0..<matrix.count {
+                while j >= 0 && matrix[i][j] > middle {
+                    j -= 1
+                }
+                count += (j + 1)
+            }
+            if count < k {
+                left = middle + 1
+            } else {
+                right = middle
+            }
+        }
+        
+        return left
+    }
+}
