@@ -1,0 +1,33 @@
+Approach : Binary Search
+Time Complexity : O(n)
+Space Complexity : 
+class Solution {
+    public int kthSmallest(int[][] matrix, int k) {
+        int n= matrix.length;
+        int left = matrix[0][0], right= matrix[n-1][n-1];
+        while(left<right){
+            int mid = left +(right-left)/2;
+            int cnt = elements(matrix,mid);//count how many elems <= mid;
+            if(cnt<k){ // Compare the count with Traget K
+                left = mid+1;
+            }else{
+                right = mid;
+            }
+        }
+        return left;
+    }
+    
+    public int elements(int[][] matrix, int mid){
+        //int row =0;
+        int cnt =0;
+        int col =matrix.length-1;//last col
+        for(int i=0; i< matrix.length; i++){//
+            while(col>=0 && matrix[i][col]>mid){
+                col--;//move left
+            }
+            cnt +=col+1;
+            if(col<0) break;
+        }
+       return cnt; 
+    }
+}
