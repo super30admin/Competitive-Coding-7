@@ -1,0 +1,23 @@
+# Time Complexity : O(n log n)
+# Space Complexity : O(n)
+# Did this code successfully run on Leetcode : Yes
+# Three line explanation of solution in plain english
+# I sort the array according to meeting start times. Then I put meeting end times into min heap. Whenever I find an end time on top of heap that is smaller
+# than a meeting start time then we pop the top and add new end to the heap, else we add the new end to the heap and increment rooms by 1
+
+from heapq import heappush, heappop
+
+class Solution:
+    def minMeetingRooms(self, intervals: List[List[int]]) -> int:
+        heap = []
+        rooms = 0
+        intervals = sorted(intervals, key= lambda x:x[0])
+        for interval in intervals:
+            if len(heap) == 0 or interval[0] < heap[0]:
+                rooms += 1
+            else:
+                heappop(heap)
+            
+            heappush(heap, interval[1])
+            
+        return rooms
