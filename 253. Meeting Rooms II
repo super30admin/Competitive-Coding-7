@@ -1,0 +1,30 @@
+import heapq
+class Solution:
+    def minMeetingRooms(self, intervals: List[List[int]]) -> int:
+        # sort the intervals based on the start time
+        intervals = sorted(intervals, key = lambda x:x[0]);
+        #print(intervals)
+        # initialize the min heap
+        queue = [intervals[0][1]]
+        heapq.heapify(queue);
+        
+        # iterate from second interval to last interval
+        for s2,e2 in intervals[1:]:
+            #print(queue[0])
+            # check whether current interval start time is greater than top of heapq
+            # if it is greater, remove the top of the heap and insert the current interval end time             #into heap
+            e1 = queue[0];
+            if(s2 >= e1):
+                heapq.heappop(queue);
+            heapq.heappush(queue, e2);
+        
+        # length of the queue returns the result
+        return len(queue)
+    
+    
+        '''
+        n = number of intervals
+        time complexity = O(nlogn)
+        space complexity = O(n);
+        '''
+        

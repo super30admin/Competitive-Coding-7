@@ -1,0 +1,64 @@
+    
+import random
+
+class Solution:
+    def quicksort(self, low, high, arr, k):
+        #print(arr)
+        if(low > high):
+            return -1;
+        if( low == high):
+            return arr[k-1];
+        # randomly select the pivot bw low and high
+        r = random.randint(low, high);
+        i,j = low, high - 1;
+        # swap elts present at positions r and high
+        arr[r], arr[high] = arr[high], arr[r];
+        # make elt present at high as pivot element
+        p = high;
+        #print(i,j,p)
+        # perform the partition operation until
+        while(1):
+            # increment i until elt at i is lesser than pivot elt
+            while(arr[i] <= arr[p] and i <= j):
+                i += 1;
+            # decrement j until elt at j is greater than pivot elt
+            while( arr[j] > arr[p] and i <= j):
+                j -= 1;
+            # swap elts present at i and j if i<j else come out of while loop
+            if(i < j):
+                arr[i], arr[j] = arr[j], arr[i];
+                i += 1;
+                j -= 1;
+            else:
+                break;
+            #print('inside while loop',arr)
+        # swap elts present at pivot and i
+        arr[i], arr[p] = arr[p], arr[i];
+        # return elt present at k if i isequal to k
+        if(i == k-1):
+            return arr[i];
+        # search in the right side if i is less than k
+        elif(i < k-1):
+            return self.quicksort(i + 1, high,arr, k);
+        # search in the left side if i is greater than k
+        else:
+            return self.quicksort(low, i - 1,arr, k);
+            
+    def kthSmallest(self, matrix: List[List[int]], k: int) -> int:
+        nums = []
+        nrows, ncols = len(matrix), len(matrix[0]);
+        # store all the elements of matrix in nums list
+        for i in range(nrows):
+            for j in range(ncols):
+                nums.append(matrix[i][j])
+        n = len(nums);
+        # initialize the low and high variables
+        low, high = 0, n - 1;
+        # invoke random quick select sort method to find kth smallest elt
+        return self.quicksort(low, high, nums, k)
+        '''
+        n = number of rows, m = no of columns
+        time complexity = O(nm)
+        space complexity = O(nm)
+        '''
+        
