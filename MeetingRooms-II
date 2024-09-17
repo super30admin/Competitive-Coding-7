@@ -1,0 +1,26 @@
+// Time Complexity : O(NlogN)  N is the number of activities
+// Space Complexity : O(N) meeting rooms are needed for all the meetings
+
+class Solution {
+    public int minMeetingRooms(int[][] intervals) {
+        if(intervals == null || intervals.length == 0) return 0;
+        Arrays.sort(intervals, (a,b) -> a[0] - b[0]);  // sorting on the basis of start times
+        PriorityQueue pq = new PriorityQueue<>(); // taking min heap to get the minimum end time from the head of the queue
+
+        pq.add(intervals[0][1]);  // adding the first end time to the priority queue
+
+        for(int i = 0 ; i < intervals.length ; i++){
+            int peekVal = pq.peek();
+
+            if(intervals[i][0] > peekVal){
+                pq.remove();
+                pq.add(intervals[i][0]);
+            }
+            else {
+                pq.add(intervals[i][0]);
+            }
+        }
+        return pq.size();
+
+    }
+}
