@@ -1,0 +1,55 @@
+//Timecomplexity    O(nlog(max-min))
+//SpaceComplexity   O(1)
+
+class Solution {
+    public int kthSmallest(int[][] matrix, int k) {
+        
+        int m = matrix.length;
+        int n = matrix[0].length;
+
+        int low = matrix[0][0];
+        int high = matrix[m-1][n-1];
+
+        while(low < high){
+
+            int[] elementaroundMid = new int[] {matrix[0][0],matrix[m-1][n-1]};
+            int mid = low + (high - low)/2;
+
+            int count = elementslessMid(matrix,mid,elementaroundMid);
+
+            if(count == k){
+                return elementaroundMid[0];
+            }else if(count < k){
+                low = elementaroundMid[1];
+            }else{
+                high = elementaroundMid[0];
+            }
+
+         
+        }
+         return low;  
+    }
+
+    
+
+    public int elementslessMid(int[][] matrix,int mid,int[] elementaroundMid){
+        int count = 0;
+        int r = matrix.length-1;
+        int c = 0;
+
+        while(r >= 0 && c < matrix[0].length){
+
+                if(matrix[r][c] > mid){
+                    elementaroundMid[1] = Math.min(elementaroundMid[1],matrix[r][c]);
+                    r--;
+
+                }else{
+                    elementaroundMid[0] = Math.max(elementaroundMid[0],matrix[r][c]);
+                    count += r+1;
+                    c++;
+                }
+        }
+
+        return count;
+    }
+}
