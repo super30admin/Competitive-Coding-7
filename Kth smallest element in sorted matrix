@@ -1,0 +1,110 @@
+// Max heap approach -> kth samllest element > time complexity: N^2 log k -> didn't considered that array is sorted
+/*class Solution {
+    public int kthSmallest(int[][] matrix, int k) {
+        PriorityQueue<Integer> pq = new PriorityQueue<>((a, b) -> b-a);
+        
+        for(int i = 0; i < matrix.length; i++){
+            for(int j = 0; j < matrix[0].length; j++){
+                
+                pq.add(matrix[i][j]);
+                if(pq.size() > k){
+                    pq.poll();
+                }
+            }
+        }
+    return pq.poll();
+    }
+}*/
+
+// Min heap approach
+// time complexity : say X = Min(k, N); X + KlogX => heap of size of X ; total number of comparisons(operations) = K
+// space complexity : log X : total number of rows we require is K out of N generally if K << N
+/*class heapNode{
+    int val;
+    int row;
+    int col;
+    
+    public heapNode(int val, int row, int col){
+        this.val = val;
+        this.row = row;
+        this.col = col;
+    }
+}
+
+class Solution {
+    public int kthSmallest(int[][] matrix, int k) {
+        int N = matrix.length;
+        
+        PriorityQueue<heapNode> que = new PriorityQueue<heapNode>((a, b) -> a.val - b.val);
+        
+        // initailize min heap of size Min(N, k) -> add the first element of each row
+        for(int r = 0; r < Math.min(N, k); r++){
+            
+            que.add(new heapNode(matrix[r][0], r, 0));
+        }
+        
+        heapNode element = que.peek();
+        
+        while( k-- > 0){
+            element = que.poll();
+            int row = element.row;
+            int col = element.col;
+            if(col < N-1)
+            que.add(new heapNode(matrix[row][col+1], row, col+1));    
+        }
+        
+        return element.val;
+    }
+}*/
+// In standard binary search logN : N: number of elements within which search space is divided
+// In this question: search spaces is divided between between largest and smallest value of 2D matrix
+// Let MAX be max value and MIN be min value in matrix : for each binary search time complexity log(MAX-MIN)
+// in each iteration of binary search, we find size of left half i.e. number of elements less than equal to mid TC: N
+// time complexity: ?? not clear why Nlog(MAX-MIN)
+class Solution {
+    public int kthSmallest(int[][] matrix, int k) {
+        int N = matrix.length;
+        
+        int low = matrix[0][0];
+        int high = matrix[N-1][N-1];
+        
+        while(low < high){
+            
+            int mid = low + (high-low)/2;
+            
+            // for every call of count there will be different values for lessOrEqulto and greaterthan 
+            // we initailise them before every call of count function
+            int[] smallLargePair = { matrix[0][0], matrix[N-1][N-1] };
+            
+            int count = CountLessThanEqualTo(mid, matrix, smallLargePair);
+            
+            if(count == k) return smallLargePair[0];
+            else if(count < k) low = smallLargePair[1];
+            else if(count > k) high = smallLargePair[0];
+            
+        }
+        return low;
+    }
+    
+    public int CountLessThanEqualTo(int mid, int[][] matrix, int[] smallLargePair){
+        int count = 0;
+        int N = matrix.length;
+        int col = matrix.length-1;
+        int row = 0;
+        
+        while(row < N && col >= 0){
+            
+            if(matrix[row][col] <= mid){
+                smallLargePair[0] = Math.max(smallLargePair[0], matrix[row][col]);
+                count += col+1;
+                row++;
+            }
+            else{
+                smallLargePair[1] = Math.min(smallLargePair[1], matrix[row][col]);
+                col--;
+            } 
+        }
+        return count;  
+    }
+}
+
