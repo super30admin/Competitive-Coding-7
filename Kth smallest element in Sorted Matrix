@@ -1,0 +1,47 @@
+//Tc: O(logn) ??
+//SC: O(1)
+
+//Approach: Idea is to perform Binary Search based on VALUE instead of regular index;
+//At each mid, calculate how many elements are lower than mid and adjust low and high accordingly
+
+class Solution {
+    int count = 0;
+    int row;
+    int col;
+    public int kthSmallest(int[][] matrix, int k) {
+        if(matrix==null || matrix.length==0){
+            return 0;
+        }
+        
+        int low = matrix[0][0];
+        int high = matrix[matrix.length-1][matrix[0].length-1];
+        int mid;
+        while(low <= high){
+            mid = low + (high - low) / 2;
+            count = traverseToCount(mid, matrix); 
+            // System.out.println(count);
+            if(count < k){
+                low = mid + 1;
+            }         
+            else{
+                high = mid - 1;
+            }
+        }
+        return low;
+    }
+    
+    private int traverseToCount(int mid, int[][] arr){
+         row = arr.length-1;
+         col = 0;
+        count = 0;
+        while(row >= 0 && col < arr[0].length){            
+            if(arr[row][col] <= mid){     //add all elments until current row index
+                col++;
+                count += row+1;
+            }else {
+                row--;
+            }
+        }
+        return count;
+    }
+}
