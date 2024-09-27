@@ -1,0 +1,25 @@
+//TC - o(nlogn)
+//SC - o(n)
+class Solution {
+    public int minMeetingRooms(int[][] intervals) {
+        
+        if(intervals == null || intervals.length == 0)
+            return 0;
+        //sorting array - n (log n)
+        Arrays.sort(intervals,(a,b) -> a[0] - b[0]);
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        
+        //worst case - o(nlogn)
+        //n heapify operations
+        for(int [] interval:intervals){
+            //if the next meeting starting at the ned time or later we can use the same room
+            if(!pq.isEmpty() && pq.peek() <= interval[0]){
+                pq.poll();
+            }
+            //in both the case we will be adding a new interval
+            pq.add(interval[1]);
+        }
+        
+        return pq.size();
+    }
+}
