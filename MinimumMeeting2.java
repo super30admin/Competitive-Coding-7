@@ -3,7 +3,7 @@ import java.util.Arrays;
 /**
  * Time Complexity: O(nlogn)
  * Space Complexity: O(n)
- * Did this code successfully run on Leetcode: Yes/No
+ * Did this code successfully run on Leetcode: Yes
  * Any problem you faced while coding this: None
 
  * Approach:
