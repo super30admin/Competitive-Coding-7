@@ -1,0 +1,52 @@
+// Time Complexity :O(m*nlogk)
+// Space Complexity :O(m*n)
+// Did this code successfully run on Leetcode :yes
+// Any problem you faced while coding this :no
+
+
+// Your code here along with comments explaining your approach:i hva eimplemented this using max as i need to get kth smallest value here my heap is become greater than k then i poll the elements as well in the end returning pq.peek as my kth smallest value 
+//solution-Min-Heap
+class Solution {
+    public int kthSmallest(int[][] matrix, int k) {
+        int m=matrix.length;
+        int n=matrix[0].length;
+         PriorityQueue<Integer> pq=new PriorityQueue<>((a,b)->b-a);
+     for(int i=0;i<m;i++){
+          for(int j=0;j<n;j++){
+                pq.add(matrix[i][j]);
+                if(pq.size()>k){
+                    pq.poll();
+                }
+     }
+     }
+     return pq.peek();
+    }
+}
+
+// Time Complexity :O(m*nlog(m*n-k))
+// Space Complexity :O(m*n)
+// Did this code successfully run on Leetcode :yes
+// Any problem you faced while coding this :no
+
+
+// Your code here along with comments explaining your approach:have used min heap and when the queue size becone m*n-k then poll the element from queue and check with previous result to get max becuase of min heap first i will be getting min from heap.
+
+//soluiotn :Min-Heap
+class Solution {
+    public int kthSmallest(int[][] matrix, int k) {
+        int m = matrix.length;
+        int n = matrix[0].length;
+        int result = Integer.MIN_VALUE;
+        int length = m * n;
+        PriorityQueue<Integer> pq = new PriorityQueue<>((a, b) -> a - b);
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                pq.add(matrix[i][j]);
+                if (pq.size() > length - k) {
+                    result = Math.max(result, pq.poll());
+                }
+            }
+        }
+        return result;
+    }
+}

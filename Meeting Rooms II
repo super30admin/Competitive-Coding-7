@@ -1,0 +1,57 @@
+// Time Complexity :O(nlogn) ->length of arrray
+// Space Complexity :O(n)
+// Did this code successfully run on Leetcode :yes
+// Any problem you faced while coding this :no
+
+
+// Your code here along with comments explaining your approach: here i have used min heap to solve this, first loop over the list and if queue is empty add elementto queue and increment count as 1 then 
+// if queueis not empty then i check queue.peek with my current meeting starttime if it is greater than or euqal to prev meeting then i can assign same room to curremt meeting so i just poll that element out and added new meeting end time 
+// else i need to assign new room to it so increment count by one as well added endtime to queue.
+
+// "static void main" must be defined in a public class.
+class Sample{
+    PriorityQueue<Integer> pq;
+   int n;
+    int count;
+    List<List<Integer>> num;
+    public Sample(List<List<Integer>> num){
+        this.num=num;
+       this.n =num.size();
+        pq=new PriorityQueue<>();
+        this.count=0;
+    }
+    public void helper(){
+    for(int i=0;i<n;i++){ O(n)
+        List<Integer> meetTime=num.get(i);
+        if(pq.isEmpty()){ //logn
+            pq.add(meetTime.get(1));
+            count=1;
+        }else{
+            int prevTime=pq.peek();
+            if(meetTime.get(0) >= prevTime){ //assigning same room
+                pq.poll();
+                pq.add(meetTime.get(1));
+            }else{
+                count++; //incrementing room count
+                pq.add(meetTime.get(1));
+            }
+        }
+    }
+        System.out.println("count"+count); //min req room count
+    }
+   
+}
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("Hello World!");
+       List<List<Integer>> num = new ArrayList<>(Arrays.asList(
+                Arrays.asList(0, 10),
+                Arrays.asList(5, 15),
+                Arrays.asList(10, 20),
+                Arrays.asList(15, 25)
+        ));
+        Sample st=new Sample(num);
+        st.helper();
+        
+    }
+}
