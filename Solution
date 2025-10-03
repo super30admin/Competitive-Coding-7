@@ -1,0 +1,36 @@
+
+import java.util.*;
+// TC O(k log n)
+// SC O(n)
+
+// We use Min-Heap to solve this problem
+class Solution {
+    public int kthSmallest(int[][] matrix, int k) {
+        int n = matrix.length;
+        
+  
+        PriorityQueue<int[]> minHeap = new PriorityQueue<>(
+            (a, b) -> Integer.compare(a[0], b[0])
+        );
+        
+     
+        for (int i = 0; i < Math.min(n, k); i++) {
+            minHeap.offer(new int[]{matrix[i][0], i, 0});
+        }
+        
+        // Extract min k times
+        int count = 0;
+        while (!minHeap.isEmpty()) {
+            int[] curr = minHeap.poll();
+            count++;
+            if (count == k) return curr[0];
+
+            int row = curr[1], col = curr[2];
+            if (col + 1 < n) {
+                minHeap.offer(new int[]{matrix[row][col + 1], row, col + 1});
+            }
+        }
+        
+        return -1;
+    }
+}
